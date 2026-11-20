@@ -1,0 +1,57 @@
+LTC3895 BUCK CONVERTER - EFFICIENCY AND LOAD-STEP TEST
+
+STATUS
+LTspice simulation results. Hardware has not yet been tested.
+
+TEST CONDITIONS
+Input voltage: 26 V
+Output voltage target: 19 V
+Switching frequency: approximately 202 kHz
+Inductor: 47 uH
+Inductor DC resistance model: 19.2 milliohms
+Current-sense resistor: 10 milliohms
+
+LOAD
+Approximately 1 A before 20 ms.
+Approximately 3 A from 20 to 30 ms.
+Approximately 1 A after 30 ms.
+
+The load consists of a resistor plus a 2 A pulsed current sink.
+The resistor current varies slightly with output voltage.
+
+MEASUREMENT WINDOWS
+Steady-state and efficiency: 27-29 ms
+Load-step minimum: 20-25 ms
+Load-removal maximum: 30-35 ms
+Peak inductor current: 20-31 ms
+
+SUMMARY
+Average output voltage: 18.9955 V
+Output ripple: 1.503 mV peak-to-peak
+Load-step minimum: 18.8284 V
+Load-removal maximum: 19.1638 V
+Average input power: 58.5887 W
+Average output power: 56.9821 W
+Simulated efficiency: 97.258%
+Simulated total power loss: 1.607 W
+
+RAW LTSPICE MEASUREMENTS
+
+vavg: AVG(V(Vout))=18.9955345098 FROM 0.027 TO 0.029
+vmax: MAX(V(Vout))=18.9963951111 FROM 0.027 TO 0.029
+vmin: MIN(V(Vout))=18.9948921204 FROM 0.027 TO 0.029
+vripple: Vmax-Vmin=0.00150299072266
+ilavg: AVG(I(L1))=3.00043768402 FROM 0.027 TO 0.029
+ilmax: MAX(I(L1))=3.25991940498 FROM 0.027 TO 0.029
+ilmin: MIN(I(L1))=2.73939704895 FROM 0.027 TO 0.029
+ilripple: ILmax-ILmin=0.520522356033
+vdip: MIN(V(Vout))=18.8283805847 FROM 0.02 TO 0.025
+vovershoot: MAX(V(Vout))=19.1637763977 FROM 0.03 TO 0.035
+ilpeak: MAX(I(L1))=3.32805728912 FROM 0.02 TO 0.031
+drvmin: MIN(V(DRVCC))=5.78515577316 FROM 0.027 TO 0.029
+drvmax: MAX(V(DRVCC))=5.79890394211 FROM 0.027 TO 0.029
+boostmin: MIN(V(BOOST,SW))=5.52835464478 FROM 0.027 TO 0.029
+pin: AVG(-VIN_TEST*I(V1))=58.5887385819 FROM 0.027 TO 0.029
+pout: AVG(V(Vout)*(V(Vout)/VOUT_TEST+I(I1)))=56.9821390965 FROM 0.027 TO 0.029
+efficiency: 100*Pout/Pin=97.2578356792
+ploss: Pin-Pout=1.60659948541

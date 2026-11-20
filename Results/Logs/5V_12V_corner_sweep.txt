@@ -1,0 +1,84 @@
+LTC3895 BUCK CONVERTER
+5 V AND 12 V OUTPUT - INPUT CORNER SWEEP
+
+STATUS
+Nominal LTspice simulation results, not hardware measurements.
+Baseline: L = 47 uH; inductor DCR = 20.7 milliohms.
+These results precede the replacement-inductor DCR update.
+
+TEST DIRECTIVES
+.step param VIN_TEST list 15 40
+.step param VOUT_TEST list 5 12
+.tran 0 40m 0 10n
+.options plotwinsize=0
+
+STEP MAPPING
+The table uses the following mapping based on the sweep setup
+and supplied results:
+Step 1: 15 V input, 5 V output target
+Step 2: 40 V input, 5 V output target
+Step 3: 15 V input, 12 V output target
+Step 4: 40 V input, 12 V output target
+
+The original .step identification lines were not included in
+the copied measurement results; confirm this mapping against
+the original LTspice run before treating it as verified metadata.
+
+COMMON CIRCUIT SETTINGS
+MOSFETs: BSC082N10LS
+L1: 47 uH, internal series resistance = 0
+External inductor resistance R6: 20.7 milliohms
+Current-sense resistance: 10 milliohms
+Switching frequency: approximately 202 kHz
+Compensation: Rth = 3.32 kohms, Cth = 47 nF, Cthp = 1 nF
+Feedback: lower resistor = 10 kohms
+Upper resistor = {10k*(VOUT_TEST/0.8-1)}
+Feedforward capacitor: 4.7 nF
+Output bulk capacitance: 600 uF, ESR = 2.5 milliohms
+Output ceramic capacitance: 22 uF, ESR = 6 milliohms
+
+LOAD
+RLOAD = {VOUT_TEST} ohms
+Additional current sink:
+PULSE(0 2 20m 200n 200n 10m 100m)
+
+Approximately 1 A before 20 ms, 3 A from 20 to 30 ms,
+and 1 A after 30 ms.
+The resistor current varies with actual output voltage.
+
+MEASUREMENT WINDOWS
+Steady-state voltage, current and driver measurements: 27-29 ms
+Vdip: minimum output voltage during 20-25 ms
+Vovershoot: maximum output voltage during 30-35 ms
+ILpeak: maximum inductor current during 20-31 ms
+BOOSTmin: minimum V(BOOST)-V(SW)
+
+RESULTS
+Values rounded from the supplied LTspice measurement log.
+Ripple values are peak-to-peak.
+
+Metric                  Step 1        Step 2        Step 3        Step 4
+VIN (V)*                15            40            15            40
+VOUT target (V)         5             5             12            12
+Vavg (V)                4.998832      4.998929      11.997319     11.997250
+Vmax (V)                4.999862      4.999376      11.997743     11.998250
+Vmin (V)                4.997643      4.998078      11.997084     11.995719
+Vripple (mV p-p)        2.219677      1.297951      0.658989      2.531052
+ILavg (A)               2.999859      2.999836      3.000369      3.000258
+ILmax (A)               3.195001      3.227367      3.121108      3.433964
+ILmin (A)               2.801394      2.766759      2.879148      2.559966
+ILripple (A p-p)        0.393607      0.460608      0.241959      0.873997
+Vdip (V)                4.875630      4.871993      11.861524     11.843084
+Vovershoot (V)          5.124099      5.125227      12.134054     12.151133
+ILpeak (A)              3.297780      3.348166      3.194105      3.504644
+DRVCCmin (V)            5.784273      5.783191      5.785527      5.783792
+DRVCCmax (V)            5.797779      5.798206      5.799111      5.797482
+BOOSTmin (V)            5.549022      5.520721      5.544760      5.517792
+
+* VIN assignments are subject to the step-mapping note above.
+
+SUMMARY
+All four reported cases remained within +/-3% of their
+respective output targets during the measured load transitions.
+These tests cover selected operating points only, not the
+entire proposed adjustable input/output range.

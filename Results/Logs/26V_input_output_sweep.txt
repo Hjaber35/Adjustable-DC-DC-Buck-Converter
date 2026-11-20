@@ -1,0 +1,72 @@
+LTC3895 BUCK CONVERTER
+26 V INPUT - OUTPUT VOLTAGE SWEEP
+
+STATUS
+Nominal LTspice simulation results, not hardware measurements.
+Baseline: L = 47 uH; inductor DCR = 20.7 milliohms.
+These results precede the replacement-inductor DCR update.
+
+TEST DIRECTIVES
+.param VIN_TEST=26
+.step param VOUT_TEST list 5 12 19
+.tran 0 40m 0 10n
+.options plotwinsize=0
+
+COMMON CIRCUIT SETTINGS
+MOSFETs: BSC082N10LS
+L1: 47 uH, internal series resistance = 0
+External inductor resistance R6: 20.7 milliohms
+Current-sense resistance: 10 milliohms
+Switching frequency: approximately 202 kHz
+Compensation: Rth = 3.32 kohms, Cth = 47 nF, Cthp = 1 nF
+Feedback: lower resistor = 10 kohms
+Upper resistor = {10k*(VOUT_TEST/0.8-1)}
+Feedforward capacitor: 4.7 nF
+Output bulk capacitance: 600 uF, ESR = 2.5 milliohms
+Output ceramic capacitance: 22 uF, ESR = 6 milliohms
+
+LOAD
+RLOAD = {VOUT_TEST} ohms
+Additional current sink:
+PULSE(0 2 20m 200n 200n 10m 100m)
+
+Approximately 1 A before 20 ms, 3 A from 20 to 30 ms,
+and 1 A after 30 ms.
+The resistor current varies with actual output voltage.
+
+MEASUREMENT WINDOWS
+Steady-state voltage, current and driver measurements: 27-29 ms
+Vdip: minimum output voltage during 20-25 ms
+Vovershoot: maximum output voltage during 30-35 ms
+ILpeak: maximum inductor current during 20-31 ms
+BOOSTmin: minimum V(BOOST)-V(SW)
+
+RESULTS
+Values rounded from the supplied LTspice measurement log.
+Ripple values are peak-to-peak.
+
+Metric                  Step 1        Step 2        Step 3
+VIN (V)                 26            26            26
+VOUT target (V)         5             12            19
+Vavg (V)                4.998927      11.997283     18.995537
+Vmax (V)                4.999489      11.998338     18.996384
+Vmin (V)                4.998026      11.996055     18.994890
+Vripple (mV p-p)        1.462460      2.283096      1.493454
+ILavg (A)               2.999858      3.000360      3.000446
+ILmax (A)               3.213579      3.341138      3.260152
+ILmin (A)               2.784811      2.654915      2.740267
+ILripple (A p-p)        0.428768      0.686223      0.519886
+Vdip (V)                4.873335      11.844493     18.828363
+Vovershoot (V)          5.124214      12.149995     19.163721
+ILpeak (A)              3.329082      3.412930      3.323586
+DRVCCmin (V)            5.783547      5.784436      5.785155
+DRVCCmax (V)            5.797975      5.798184      5.798904
+BOOSTmin (V)            5.534134      5.530708      5.528358
+
+SUMMARY
+All three tested output settings remained within +/-3%
+of their respective targets during the measured load transitions.
+The feedback resistor and baseline load resistor changed with
+VOUT_TEST; the compensation and power-stage values stayed fixed.
+These are separate output-setting simulations, not a simulation
+of changing the adjustment while the converter is running.

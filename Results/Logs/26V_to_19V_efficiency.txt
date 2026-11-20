@@ -1,0 +1,31 @@
+LTC3895 - NOMINAL EFFICIENCY TEST
+LTspice simulation; not hardware measurements.
+
+Input: 26 V
+Output target: 19 V
+Load during measurement: approximately 3 A
+Measurement interval: 27-29 ms
+Inductor: 47 uH
+Inductor DCR: 20.7 milliohms
+
+Earlier baseline, before the replacement-inductor
+DCR update to 19.2 milliohms.
+
+vavg: AVG(V(Vout))=18.9955373946 FROM 0.027 TO 0.029
+vmax: MAX(V(Vout))=18.996383667 FROM 0.027 TO 0.029
+vmin: MIN(V(Vout))=18.994890213 FROM 0.027 TO 0.029
+vripple: Vmax-Vmin=0.00149345397949
+ilavg: AVG(I(L1))=3.00044623124 FROM 0.027 TO 0.029
+ilmax: MAX(I(L1))=3.26015233994 FROM 0.027 TO 0.029
+ilmin: MIN(I(L1))=2.74026656151 FROM 0.027 TO 0.029
+ilripple: ILmax-ILmin=0.519885778427
+vdip: MIN(V(Vout))=18.8283634186 FROM 0.02 TO 0.025
+vovershoot: MAX(V(Vout))=19.1637210846 FROM 0.03 TO 0.035
+ilpeak: MAX(I(L1))=3.32358598709 FROM 0.02 TO 0.031
+drvmin: MIN(V(DRVCC))=5.78515529633 FROM 0.027 TO 0.029
+drvmax: MAX(V(DRVCC))=5.79890441895 FROM 0.027 TO 0.029
+boostmin: MIN(V(BOOST,SW))=5.52835845947 FROM 0.027 TO 0.029
+pin: AVG(-VIN_TEST*I(V1))=58.6023395558 FROM 0.027 TO 0.029
+pout: AVG(V(Vout)*(V(Vout)/VOUT_TEST+I(I1)))=56.9821506342 FROM 0.027 TO 0.029
+efficiency: 100*Pout/Pin=97.2352828678
+ploss: Pin-Pout=1.62018892157

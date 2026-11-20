@@ -1,0 +1,70 @@
+LTC3895 BUCK CONVERTER
+19 V OUTPUT - INPUT VOLTAGE SWEEP
+
+STATUS
+Nominal LTspice simulation results, not hardware measurements.
+Baseline: L = 47 uH; inductor DCR = 20.7 milliohms.
+These results precede the replacement-inductor DCR update.
+
+TEST DIRECTIVES
+.step param VIN_TEST list 22 26 30 40
+.param VOUT_TEST=19
+.tran 0 40m 0 10n
+.options plotwinsize=0
+
+COMMON CIRCUIT SETTINGS
+MOSFETs: BSC082N10LS
+L1: 47 uH, internal series resistance = 0
+External inductor resistance R6: 20.7 milliohms
+Current-sense resistance: 10 milliohms
+Switching frequency: approximately 202 kHz
+Compensation: Rth = 3.32 kohms, Cth = 47 nF, Cthp = 1 nF
+Feedback: lower resistor = 10 kohms
+Upper resistor = {10k*(VOUT_TEST/0.8-1)}
+Feedforward capacitor: 4.7 nF
+Output bulk capacitance: 600 uF, ESR = 2.5 milliohms
+Output ceramic capacitance: 22 uF, ESR = 6 milliohms
+
+LOAD
+RLOAD = {VOUT_TEST} ohms
+Additional current sink:
+PULSE(0 2 20m 200n 200n 10m 100m)
+
+Approximately 1 A before 20 ms, 3 A from 20 to 30 ms,
+and 1 A after 30 ms.
+The resistor current varies with actual output voltage.
+
+MEASUREMENT WINDOWS
+Steady-state voltage, current and driver measurements: 27-29 ms
+Vdip: minimum output voltage during 20-25 ms
+Vovershoot: maximum output voltage during 30-35 ms
+ILpeak: maximum inductor current during 20-31 ms
+BOOSTmin: minimum V(BOOST)-V(SW)
+
+RESULTS
+Values rounded from the supplied LTspice measurement log.
+Ripple values are peak-to-peak.
+
+Metric                  Step 1        Step 2        Step 3        Step 4
+VIN (V)                 22            26            30            40
+VOUT target (V)         19            19            19            19
+Vavg (V)                18.995635     18.995537     18.995478     18.995381
+Vmax (V)                18.996157     18.996384     18.996607     18.997196
+Vmin (V)                18.995285     18.994890     18.994549     18.993471
+Vripple (mV p-p)        0.871658      1.493454      2.058029      3.725052
+ILavg (A)               3.000441      3.000446      3.000440      3.000327
+ILmax (A)               3.131401      3.260152      3.358642      3.517828
+ILmin (A)               2.868773      2.740267      2.643544      2.473204
+ILripple (A p-p)        0.262628      0.519886      0.715098      1.044623
+Vdip (V)                18.836824     18.828363     18.828587     18.828854
+Vovershoot (V)          19.160894     19.163721     19.163607     19.163216
+ILpeak (A)              3.193445      3.323586      3.414441      3.566667
+DRVCCmin (V)            5.785507      5.785155      5.784843      5.784279
+DRVCCmax (V)            5.799190      5.798904      5.798653      5.798154
+BOOSTmin (V)            5.532608      5.528358      5.524523      5.514694
+
+SUMMARY
+All four tested cases remained within +/-3% of the 19 V
+target during the measured load transitions.
+This does not establish hardware performance, thermal limits,
+or operation outside the tested conditions.
